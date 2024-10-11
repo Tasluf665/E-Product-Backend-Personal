@@ -9,6 +9,7 @@ const port = process.env.PORT || 8000;
 
 // Define a route to handle GET requests to the home page
 app.get('/', (req, res) => {
+    console.log("API is calling")
     res.send(config.get("MONGODB_URL"));
 
 });
