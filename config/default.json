@@ -1,0 +1,6 @@
+{
+    "MONGODB_URL": "",
+    "JWT_PRIVATE_KEY": "",
+    "JWT_REFRESH_TOKEN_PRIVATE_KEY": "",
+    "BASE_URL": ""
+}
