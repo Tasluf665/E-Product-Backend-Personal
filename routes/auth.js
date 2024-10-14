@@ -27,13 +27,13 @@ router.post(
         if (!validPassword)
             return res.status(400).send({ error: "Invalide email or password" });
 
-        if (!user.verified) {
-            sendVerificationEmail(user.email, user._id);
-            return res.status(400).send({
-                error:
-                    "Email is not verified. Please check your email to verify your account",
-            });
-        }
+        // if (!user.verified) {
+        //     sendVerificationEmail(user.email, user._id);
+        //     return res.status(400).send({
+        //         error:
+        //             "Email is not verified. Please check your email to verify your account",
+        //     });
+        // }
 
         const token = user.generateAuthToken();
         const refreshToken = user.generateRefreshToken();
@@ -65,10 +65,11 @@ router.post("/signup", async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt);
 
     await user.save();
-    sendVerificationEmail(user.email, user._id);
+    // sendVerificationEmail(user.email, user._id);
 
     res.send({
-        success: "Please check your email to verify your accont",
+        // success: "Please check your email to verify your accont",
+        success: "Your account has been created",
     });
 });
 
@@ -85,7 +86,9 @@ router.get(
             const user = await User.findById(decoded._id);
             user.verified = true;
             user.save();
-            res.render("EmailVerification");
+            res.send({
+                success: "Email verified successfully",
+            });
         } catch (ex) {
             res.status(400).send({ error: "Invalide token" });
         }

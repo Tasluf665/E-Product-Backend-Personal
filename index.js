@@ -30,6 +30,7 @@ const origins = [
     "http://localhost:3000",
     "http://gvaccountsell.com/",
     "https://gvaccountsell.com/",
+    "https://e-product-backend-liard.vercel.app/"
 ];
 
 const corsOptions = {
