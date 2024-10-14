@@ -1,3 +1,5 @@
+//https://www.youtube.com/watch?v=QDIOBsMBEI0
+
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken");
 
@@ -5,8 +7,8 @@ const sendEmail = async (email, subject, message) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.APP_PASSWORD,
