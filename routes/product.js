@@ -5,14 +5,15 @@ const { Category } = require("../models/category");
 
 //Image Upload
 const multer = require("multer");
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/products");
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "./uploads/products");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, `${Date.now()}-${file.originalname}`);
+//   },
+// });
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 const {
@@ -40,8 +41,10 @@ router.post("/", upload.single("imageUrl"), async (req, res) => {
       .status(404)
       .send({ error: "Product must have at least one image" });
   }
-  const imagePath = req.file.path;
-  req.body.imageUrl = imagePath.replace(/\\/g, "/");
+  // const imagePath = req.file.path;
+
+  const imageBase64 = req.file.buffer.toString("base64")
+  req.body.imageUrl = imageBase64;
 
   if (typeof req.body.tags === "string") {
     req.body.tags = req.body.tags.split(",").map((tag) => tag.trim());
